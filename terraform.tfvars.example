@@ -1,0 +1,12 @@
+# Copy this file to terraform.tfvars and fill in your own values.
+#   cp terraform.tfvars.example terraform.tfvars
+# terraform.tfvars is gitignored so your real values stay local.
+
+resource_group_name = "rg-ad-lab"
+location            = "eastus"
+
+# Only this source IP/CIDR may RDP into the VM. Find yours with:  curl ifconfig.me
+allowed_rdp_source_cidr = "YOUR.PUBLIC.IP.HERE/32"
+
+# Optional: override the VM size if Standard_B2s is capacity-restricted in your region
+# vm_size = "Standard_D2s_v3"
