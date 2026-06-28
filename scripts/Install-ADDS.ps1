@@ -41,7 +41,8 @@ $result = Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTool
 # AD DS installs sometimes need a reboot before the server can be promoted.
 # Check the flag and warn the operator if so (yellow = warning).
 if ($result.RestartNeeded -eq 'Yes') {
-    Write-Host "A restart is required before promotion." -ForegroundColor Yellow
+    Write-Host "A restart is required before promotion. Reboot, then re-run this script." -ForegroundColor Yellow
+    return   # stop here instead of promoting on a dirty state
 }
 
 # Install-ADDSForest creates a brand-new forest and makes this box its first Domain Controller
