@@ -13,6 +13,12 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+# If no DSRM password was passed in, prompt for one securely (masked input).
+# Avoids passing $null into Install-ADDSForest's -SafeModeAdministratorPassword.
+if (-not $SafeModePassword) {
+    $SafeModePassword = Read-Host -AsSecureString -Prompt "Enter a DSRM (recovery) password"
+}
+
 # [WindowsIdentity]::GetCurrent()  → who is this process running as? (.NET)
 # New-Object cmdlet  → wrap that identity in a principal so we can ask about roles
 # WindowsPrincipal.IsInRole + WindowsBuiltInRole enum  → "am I in the Administrators role?"
